@@ -1,0 +1,213 @@
+:root {
+  --bg: #f6f3ee;
+  --surface: #ffffff;
+  --surface-2: #efeae2;
+  --text: #1d2421;
+  --muted: #5c6661;
+  --line: #ddd6cb;
+  --accent: #1f4e4a;
+  --accent-contrast: #ffffff;
+  --accent-soft: #dfeae7;
+  --warn: #8a5200;
+  --warn-soft: #fbefd9;
+  --danger: #a3281f;
+  --danger-soft: #f8e1de;
+  --ok: #2f6b3a;
+  --focus: #2a6fdb;
+  --radius: 12px;
+  --shadow: 0 1px 2px rgb(0 0 0 / 6%), 0 4px 14px rgb(0 0 0 / 5%);
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111615;
+    --surface: #1a201f;
+    --surface-2: #222a28;
+    --text: #e8ece9;
+    --muted: #9aa5a0;
+    --line: #2f3836;
+    --accent: #7cc4b8;
+    --accent-contrast: #0e1413;
+    --accent-soft: #1f3431;
+    --warn: #f0b562;
+    --warn-soft: #3a2c16;
+    --danger: #f08a80;
+    --danger-soft: #3b1f1c;
+    --ok: #8fd19e;
+    --focus: #8ab4ff;
+    --shadow: none;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 17px/1.55 system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { line-height: 1.25; margin: 0 0 0.5em; }
+h1 { font-size: 1.55rem; }
+h2 { font-size: 1.25rem; }
+h3 { font-size: 1.05rem; }
+p { margin: 0 0 0.8em; }
+a { color: var(--accent); }
+small, .muted { color: var(--muted); }
+
+.page { max-width: 720px; margin: 0 auto; padding: 16px 16px 120px; }
+.stack > * + * { margin-top: 16px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.card.soft { background: var(--surface-2); box-shadow: none; }
+.card.warn { background: var(--warn-soft); border-color: transparent; }
+.card.danger { background: var(--danger-soft); border-color: transparent; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-contrast); }
+.btn.ghost { background: transparent; border-color: transparent; color: var(--accent); padding-inline: 8px; }
+.btn.small { min-height: 36px; padding: 6px 12px; font-size: 0.92rem; }
+.btn.danger { color: var(--danger); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.row.spread { justify-content: space-between; }
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+label { display: block; font-weight: 600; margin-bottom: 6px; }
+input[type='text'], input[type='url'], textarea, select {
+  width: 100%;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+textarea { min-height: 120px; resize: vertical; line-height: 1.55; }
+input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
+
+.tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+}
+.tag.accent { background: var(--accent-soft); color: var(--accent); }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner { max-width: 720px; margin: 0 auto; padding: 8px 16px; display: flex; gap: 8px; align-items: center; }
+.topbar-inner .btn { white-space: nowrap; flex: none; }
+
+.bottombar {
+  position: fixed;
+  inset: auto 0 0 0;
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 5;
+}
+.bottombar-inner { max-width: 720px; margin: 0 auto; padding: 10px 16px; display: flex; gap: 8px; }
+.bottombar-inner .grow { flex: 1; }
+
+details > summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+ol, ul { padding-left: 1.3em; margin: 0 0 0.8em; }
+li + li { margin-top: 4px; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ——— Экзаменационная комната ——— */
+
+.en {
+  font-family: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+.task-card { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 16px 18px; }
+.task-card p:last-child, .task-card ul:last-child { margin-bottom: 0; }
+
+.timer { font-variant-numeric: tabular-nums; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: var(--surface-2); }
+.timer.low { background: var(--warn-soft); color: var(--warn); }
+.timer.out { background: var(--danger-soft); color: var(--danger); }
+
+.choices { display: grid; gap: 8px; }
+.choice {
+  display: flex; align-items: center; gap: 10px; text-align: left;
+  min-height: 48px; padding: 10px 14px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--text); font: inherit; cursor: pointer;
+}
+.choice:hover { border-color: var(--accent); }
+.choice[aria-pressed='true'], .choice[aria-checked='true'] { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.choice .key { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); font-size: 0.85rem; font-weight: 700; }
+
+.segmented { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.segmented button { border: 0; background: var(--surface); color: var(--text); font: inherit; padding: 8px 14px; min-height: 40px; cursor: pointer; }
+.segmented button + button { border-left: 1px solid var(--line); }
+.segmented button[aria-checked='true'] { background: var(--accent); color: var(--accent-contrast); font-weight: 600; }
+
+.meter { height: 10px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.meter span { display: block; height: 100%; background: var(--ok); transition: width 0.08s linear; }
+
+.rec-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--danger); animation: pulse 1.2s infinite; }
+@keyframes pulse { 50% { opacity: 0.35; } }
+
+.blank { display: inline-block; min-width: 4.5em; border-bottom: 2px solid var(--accent); text-align: center; }
+/* Поле пропуска стоит внутри предложения: общее правило input[type='text'] растянуло бы его на всю строку. */
+input[type='text'].gap-input { display: inline-block; width: 10em; max-width: 100%; margin: 0 4px; padding: 2px 8px; }
+.seg-btn { font: inherit; padding: 1px 6px; border-radius: 6px; border: 1px dashed var(--muted); background: transparent; color: var(--text); cursor: pointer; }
+.seg-btn[aria-pressed='true'] { border-style: solid; border-color: var(--danger); background: var(--danger-soft); }
+.seg-btn sup { color: var(--muted); font-family: system-ui, sans-serif; font-size: 0.7rem; margin-left: 2px; }
+
+.parts { list-style: none; padding: 0; margin: 0; }
+.parts li + li { margin-top: 8px; }
+.part-row { display: flex; gap: 12px; align-items: center; }
+.part-row .n { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); font-weight: 700; }
+.part-row.done .n { background: var(--accent-soft); color: var(--accent); }
+.part-row .grow { flex: 1; min-width: 0; }
+.part-row.locked { opacity: 0.55; }
+
+.writing-area { min-height: 320px; font-family: Georgia, 'Iowan Old Style', 'Times New Roman', serif; font-size: 1.05rem; }
+.writing-area[readonly] { background: var(--surface-2); }

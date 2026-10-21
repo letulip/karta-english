@@ -1,0 +1,17 @@
+node_modules
+dist
+coverage
+test-results
+playwright-report
+*.local
+.DS_Store
+
+# Ответы, записи голоса и разборы — личные данные, в git не попадают никогда.
+results/
+.e2e-results/
+.demo-results/
+
+# Окружение Python и прогоны самопроверки распознавания речи.
+pipeline/.venv/
+pipeline/.selftest/
+__pycache__/

@@ -1,0 +1,38 @@
+{
+  "name": "english-karta",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Карта английского — локальный тест уровня английского: биография, самооценка, грамматика, письмо и речь с записью. Всё остаётся на этом компьютере.",
+  "type": "module",
+  "scripts": {
+    "exam": "vite --port 5180 --strictPort",
+    "demo": "RESULTS_DIR=.demo-results vite --port 5181 --strictPort",
+    "build": "vue-tsc -b && vite build",
+    "typecheck": "vue-tsc -b",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "e2e": "playwright test",
+    "check": "npm run typecheck && npm run test && npm run e2e",
+    "audio": "node scripts/gen-audio.ts",
+    "transcribe": "bash pipeline/run.sh",
+    "dossier": "vite-node scripts/dossier.ts"
+  },
+  "dependencies": {
+    "vue": "3.5.40"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@types/node": "^24.0.0",
+    "@vitejs/plugin-vue": "6.0.8",
+    "@vue/test-utils": "2.4.11",
+    "@vue/tsconfig": "^0.8.1",
+    "happy-dom": "20.11.1",
+    "typescript": "5.9.3",
+    "vite": "7.3.6",
+    "vitest": "3.2.7",
+    "vue-tsc": "3.3.7"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}
