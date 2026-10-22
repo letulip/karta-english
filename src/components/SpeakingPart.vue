@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 import { SPEAKING, TYPE_LABELS, VOICE_LABELS, audioUrl } from '../content/speaking';
 import type { SpeakingPrompt, SpeakingType, Voice } from '../content/types';
-import { logEvent, readJson, writeFile, writeJson } from '../lib/api';
+import { MODE, logEvent, readJson, writeFile, writeJson } from '../lib/api';
 import { setContext } from '../lib/conditions';
 import { Recording, beep, extFor, getMic, levelMeter, type MicInfo } from '../lib/recorder';
 import { finishPart, state } from '../lib/session';
@@ -348,10 +348,11 @@ async function submitPart() {
 
     <template v-else>
       <div class="card soft" data-testid="speaking-done">
-        <p>
+        <p v-if="MODE === 'server'">
           <strong>Все ответы записаны.</strong> Записи лежат в <code>results/{{ state.session?.id }}/speaking/</code>, расшифровку
           я сделаю после сдачи части.
         </p>
+        <p v-else><strong>Все ответы записаны.</strong> Записи сохранены в браузере и попадут в архив с результатами.</p>
       </div>
       <div class="row">
         <button class="btn primary" type="button" data-testid="submit-part" @click="submitPart">Сдать часть</button>

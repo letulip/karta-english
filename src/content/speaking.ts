@@ -71,4 +71,5 @@ export const VOICE_LABELS: Record<Voice, string> = {
 // Скорость речи голосов, слов в минуту: близко к разговорной, без поблажек и без гонки.
 export const VOICE_RATE: Record<Voice, number> = { Daniel: 175, Samantha: 180, Karen: 180, Rishi: 170 };
 
-export const audioUrl = (id: string) => `/audio/${id}.mp3`;
+// От базового пути сборки: на GitHub Pages сайт живёт в /karta-english/, а не в корне.
+export const audioUrl = (id: string) => `${import.meta.env.BASE_URL}audio/${id}.mp3`;

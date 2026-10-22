@@ -8,6 +8,7 @@
     "exam": "vite --port 5180 --strictPort",
     "demo": "RESULTS_DIR=.demo-results vite --port 5181 --strictPort",
     "build": "vue-tsc -b && vite build",
+    "build:pages": "vue-tsc -b && VITE_STORAGE=browser vite build --base /karta-english/",
     "typecheck": "vue-tsc -b",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -15,9 +16,11 @@
     "check": "npm run typecheck && npm run test && npm run e2e",
     "audio": "node scripts/gen-audio.ts",
     "transcribe": "bash pipeline/run.sh",
-    "dossier": "vite-node scripts/dossier.ts"
+    "dossier": "vite-node scripts/dossier.ts",
+    "import": "vite-node scripts/import.ts --"
   },
   "dependencies": {
+    "fflate": "0.8.3",
     "vue": "3.5.40"
   },
   "devDependencies": {

@@ -35,7 +35,8 @@ export class Recording {
 
   constructor(s: MediaStream) {
     this.mime = pickMime();
-    this.recorder = new MediaRecorder(s, this.mime ? { mimeType: this.mime } : undefined);
+    // 64 кбит/с с запасом хватает речи и Whisper, а архив для версии на Pages не разрастается.
+    this.recorder = new MediaRecorder(s, { ...(this.mime ? { mimeType: this.mime } : {}), audioBitsPerSecond: 64_000 });
     this.recorder.ondataavailable = (e) => {
       if (e.data.size) this.chunks.push(e.data);
     };

@@ -9,6 +9,7 @@ playwright-report
 # Ответы, записи голоса и разборы — личные данные, в git не попадают никогда.
 results/
 .e2e-results/
+.e2e-pages/
 .demo-results/
 
 # Окружение Python и прогоны самопроверки распознавания речи.

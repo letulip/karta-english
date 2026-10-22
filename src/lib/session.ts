@@ -1,7 +1,8 @@
 import { reactive } from 'vue';
 import { PARTS } from '../content/parts';
 import type { PartId } from '../content/types';
-import { createSession, fetchSession, logEvent, writeJson, type Session } from './api';
+import { MODE, createSession, fetchSession, logEvent, writeJson, type Session } from './api';
+import { requestPersistence } from './backend/browser';
 import { setContext } from './conditions';
 
 export const state = reactive<{
@@ -24,7 +25,10 @@ export async function loadSession(): Promise<void> {
     state.session = await fetchSession();
     state.error = '';
   } catch (err) {
-    state.error = `Сервер не отвечает (${String(err)}). Запусти его командой npm run exam.`;
+    state.error =
+      MODE === 'server'
+        ? `Сервер не отвечает (${String(err)}). Запусти его командой npm run exam.`
+        : `Браузер не дал открыть хранилище (${String(err)}). Проверь, что окно не приватное, и обнови страницу.`;
   } finally {
     state.loading = false;
   }
@@ -32,7 +36,7 @@ export async function loadSession(): Promise<void> {
 
 export async function beginTest(form: 'a' | 'b' = 'a'): Promise<void> {
   state.session = await createSession(form);
-  logEvent('session-start', { form });
+  logEvent('session-start', { form, mode: MODE, ...(MODE === 'browser' ? { persisted: await requestPersistence() } : {}) });
 }
 
 export function partStatus(id: PartId): 'locked' | 'todo' | 'active' | 'done' {

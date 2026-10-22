@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { PARTS, SITTINGS } from '../content/parts';
+import { MODE } from '../lib/api';
 import { beginTest, openPart, partStatus, state } from '../lib/session';
+import BackupCard from './BackupCard.vue';
 
 const starting = ref(false);
 const sittings = [1, 2, 3] as const;
@@ -39,7 +41,11 @@ async function start() {
     <div class="row">
       <button class="btn primary" type="button" :disabled="starting" @click="start">Начать тест</button>
     </div>
-    <p class="muted">Ответы и записи сохраняются только на этом компьютере, в папке <code>results/</code>.</p>
+    <p v-if="MODE === 'server'" class="muted">Ответы и записи сохраняются только на этом компьютере, в папке <code>results/</code>.</p>
+    <p v-else class="muted">
+      Ответы и записи сохраняются только в этом браузере и никуда не отправляются. В конце ты скачаешь их архивом.
+    </p>
+    <BackupCard v-if="MODE === 'browser'" />
   </section>
 
   <section v-else class="stack">
@@ -74,8 +80,10 @@ async function start() {
     </template>
 
     <div v-if="doneCount === PARTS.length" class="card soft" data-testid="all-done">
-      <strong>Все части сданы.</strong> Дальше — расшифровка речи и разбор: напиши Claude, что тест пройден.
+      <strong>Все части сданы.</strong>
+      {{ MODE === 'server' ? 'Дальше — расшифровка речи и разбор: напиши Claude, что тест пройден.' : 'Осталось скачать архив с результатами.' }}
     </div>
+    <BackupCard v-if="MODE === 'browser'" :final="doneCount === PARTS.length" />
 
     <details class="card soft">
       <summary>Правила</summary>
@@ -86,6 +94,7 @@ async function start() {
         <li>Уходы со страницы и попытки вставить текст попадают в журнал как контекст.</li>
       </ul>
     </details>
-    <p class="muted">Сессия {{ state.session.id }} · результаты в <code>results/{{ state.session.id }}/</code></p>
+    <p v-if="MODE === 'server'" class="muted">Сессия {{ state.session.id }} · результаты в <code>results/{{ state.session.id }}/</code></p>
+    <p v-else class="muted">Сессия {{ state.session.id }} · хранится в этом браузере</p>
   </section>
 </template>
