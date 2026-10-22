@@ -9,6 +9,7 @@
     "demo": "RESULTS_DIR=.demo-results vite --port 5181 --strictPort",
     "build": "vue-tsc -b && vite build",
     "build:pages": "vue-tsc -b && VITE_STORAGE=browser vite build --base /karta-english/",
+    "preview:pages": "vite preview --base /karta-english/ --port 5184 --strictPort",
     "typecheck": "vue-tsc -b",
     "test": "vitest run",
     "test:watch": "vitest",
